@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     var playerScoreTotal = 0
     var enemyScoreTotal = 0
     
-    var cardNamesArray: [String] = ["ace", "card2", "card3", "card4", "card5", "card6", "card7", "card8", "card9", "card10", "jack", "queen", "king"]
+    var cards: [String] = ["ace", "card2", "card3", "card4", "card5", "card6", "card7", "card8", "card9", "card10", "jack", "queen", "king"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,27 +33,25 @@ class ViewController: UIViewController {
     }
 
     @IBAction func playRoundTapped(sender: UIButton) {
-        let firstRandomNumber: Int = Int(arc4random_uniform(13))
-        let firstCardString: String = self.cardNamesArray[firstRandomNumber]
+        func randomCard() -> Int {
+            return Int(arc4random_uniform(13))
+        }
         
-        let secondRandomNumber: Int = Int(arc4random_uniform(13))
-        let secondCardString: String = self.cardNamesArray[secondRandomNumber]
+        let firstRandomNumber = randomCard()
+        let secondRandomNumber = randomCard()
         
-        self.firstCardImage.image = UIImage(named: firstCardString)
-        self.secondCardImage.image = UIImage(named: secondCardString)
-        
-
+        self.firstCardImage.image = UIImage(named: self.cards[firstRandomNumber])
+        self.secondCardImage.image = UIImage(named: self.cards[secondRandomNumber])
         
         if firstRandomNumber > secondRandomNumber {
             playerScoreTotal += 1
             self.playerScore.text = String(playerScoreTotal)
         } else if firstRandomNumber == secondRandomNumber {
-            
+            //do nothing
         } else {
             enemyScoreTotal += 1
             self.enemyScore.text = String(enemyScoreTotal)
         }
     }
-
 }
 
